@@ -150,19 +150,72 @@
 
 //(c) - Case-Insensitive & Ignoring Non-Alphanumeric
 
-function isPalindrome(str){
-    // r//emove non-alphanumeric & convert to lowercase
-     str = str.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
+// function isPalindrome(str){
+//     // remove non-alphanumeric & convert to lowercase
+//      str = str.replace(/[^a-zA-Z0-9]/g, "").toLowerCase();
 
-     let left = 0, right = str.length - 1;
-  while (left < right) {
-    if (str[left] !== str[right]) return false;
-    left++;
-    right--;
-  }
-  return true;
+//      let left = 0, right = str.length - 1;
+//   while (left < right) {
+//     if (str[left] !== str[right]) return false;
+//     left++;
+//     right--;
+//   }
+//   return true;
+// }
+
+// console.log(isPalindrome("A man, a plan, a canal: Panama")); // true
+// console.log(isPalindrome("No lemon, no melon")); // true
+// console.log(isPalindrome("hello")); // false
+
+//(5) Find duplicate character
+//(A)-Using Hashmap
+// function findDuplicate(str){
+//     let freq = {}
+//     let duplicates = {}
+//     for(let char of str){
+//        freq[char] = (freq[char]||0) + 1
+//     }
+
+//     for(let char in freq){
+//       if(freq[char]>1){
+//         duplicates[char] = freq[char]
+//       }
+//     }
+
+// return duplicates;    
+// }
+// console.log(findDuplicate("programming"))
+// Time Complexity:O(n) , Space Complexity:O(k)(K=unique characters)
+
+//(b) - Using Set
+// function duplicates(str){
+//     let seen = new Set()
+//     let duplicate = new Set()
+
+//     for(let char of str){
+//       if(seen.has(char)){
+//         duplicate.add(char)
+//       } else{
+//         seen.add(char)
+//       }
+//     }
+//     return [...duplicate]
+// }
+// console.log(duplicates("programming"))
+
+
+//(d)-Naive Approach
+
+function findDuplicate(str){
+  let duplictate = [];
+
+  for(let i = 0;i<str.length;i++){
+    for(let j = i+1;j<str.length;j++){
+      if(str[i] === str[j] && !duplictate.includes(str[i])){
+        duplictate.push(str[i])
+    }
+   }
+  } 
+  return duplictate
 }
-
-console.log(isPalindrome("A man, a plan, a canal: Panama")); // true
-console.log(isPalindrome("No lemon, no melon")); // true
-console.log(isPalindrome("hello")); // false
+console.log(findDuplicate("programming"))
