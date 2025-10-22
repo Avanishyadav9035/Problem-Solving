@@ -219,3 +219,4 @@ function findDuplicate(str){
   return duplictate
 }
 console.log(findDuplicate("programming"))
+// Time Complexity: O(n²) (not efficient, but shows logic).
