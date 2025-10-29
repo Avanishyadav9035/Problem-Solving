@@ -206,17 +206,183 @@
 
 //(d)-Naive Approach
 
-function findDuplicate(str){
-  let duplictate = [];
+// function findDuplicate(str){
+//   let duplictate = [];
 
-  for(let i = 0;i<str.length;i++){
-    for(let j = i+1;j<str.length;j++){
-      if(str[i] === str[j] && !duplictate.includes(str[i])){
-        duplictate.push(str[i])
-    }
-   }
-  } 
-  return duplictate
-}
-console.log(findDuplicate("programming"))
+//   for(let i = 0;i<str.length;i++){
+//     for(let j = i+1;j<str.length;j++){
+//       if(str[i] === str[j] && !duplictate.includes(str[i])){
+//         duplictate.push(str[i])
+//     }
+//    }
+//   } 
+//   return duplictate
+// }
+// console.log(findDuplicate("programming"))
 // Time Complexity: O(n²) (not efficient, but shows logic).
+
+
+//(6) Anagram -  Two strings are anagrams if they contain the same  characters  in the same  frequency but order can be different
+
+// function isAnagram(str1, str2){
+//   if(str1.length !== str2.length) return false;
+
+//   return str1.split("").sort().join("") === str2.split("").sort().join("");
+
+// }
+// console.log(isAnagram("listen", "silent"));
+// console.log(isAnagram("hello", "world"));
+
+//Time of complexity : O(nlogn) (becuase of sorting)
+
+//Using HashMap
+// function isAnagram(str1, str2){
+//     if(str1.length !== str2.length) return false;
+
+//     let freq = {};
+
+//     for(let char of str1){
+//         freq[char] = (freq[char]||0) + 1;
+//     }
+
+//     for(let char of str2){
+//         if(!freq[char]) return false
+//         freq[char]--;
+//     }
+//     return true;
+// }
+
+// console.log(isAnagram("listen", "silent")); // true
+// console.log(isAnagram("triangle", "integral")); // true
+// console.log(isAnagram("hello", "world"));   // false
+
+//Time Complexity - O(N)
+//Space Complexity - O(k)(k= unique characters)
+
+//case insensitive and ignoring spaces
+
+// function isAnagram(str1, str2){
+//     str1 = str1.replace(/\+s/g,"").toLowerCase();
+//     str2 = str2.replace(/\+s/g,"").toLowerCase();
+
+//     if(str1.length !== str2.length) return false;
+
+//     let freq = {};
+//     for(let char of str1){
+//         freq[char] = (freq[char]||0) + 1;
+//     }
+
+//     for(let char of str2){
+//         if(!freq[char]) return false;
+//         freq[char]--;
+//     }
+
+//     return false;
+// }
+// console.log(isAnagram("Dormitory", "Dirty Room")); // true
+// console.log(isAnagram("Astronomer", "Moon starer")); // true
+
+
+//(7) Count Vowels and Consonants in a String
+
+// function countVowelAndConsonants(str){
+//    str  = str.toLowerCase();
+//    let vowels = 'aeiou'
+//    let vCount = 0, cCount = 0;
+//    for(let char of str){
+//     if(/[a-z]/.test(char)){  // check alphabet only
+//         if(vowels.includes(char)){
+//            vCount++;
+//         } else{
+//             cCount++;
+//         }
+//     }
+//    }
+//    return {vowels:vCount, consonants:cCount}
+// }
+// console.log(countVowelAndConsonants("Hello World"))
+
+//2. Using Regular Expressions
+// function countVowelConsonants(str){
+//     str  = str.toLowerCase()
+    
+//     let vowels = (str.match(/[aeiou]/g) || []).length;
+//     let consonant = (str.match(/[bcdfghjklmnpqrstvwxyz]/g) || []).length
+
+//     return {vowels, consonant}
+// }
+// console.log(countVowelConsonants("hello world"))
+
+// function countCharacter(str){
+//    str  = str.toLowerCase()
+//    let vCount = 0, cCount = 0, digitCount = 0, spaceCount = 0;
+
+//    for(let char of str){
+//     if("aeiou".includes(char)){
+//         vCount++;
+//     } else if(/[a-z]/.test(char)){
+//         cCount++;
+//     } else if(/[0-9]/.test(char)){
+//         digitCount++;
+//     } else if(char === " "){
+//         spaceCount++;
+//     }
+//    }
+//    return {vowels:cCount,consonants:cCount, digits:digitCount, spaces:spaceCount}
+// }
+// console.log(countCharacter("Hello World 123"));
+
+//(8) “Find First Non-Repeating Character” is a very popular string problem, asked a lot in.
+
+//1. Using Hash Map (Efficient O(n))
+
+// function firstNonRepeatingCharacter(str){
+//     let freq = {}
+
+//     // Count frequency of each character
+//     for(let char of str){
+//         freq[char] = (freq[char]||0) + 1
+//     }
+
+//       // Find first character with frequency 1
+
+//       for(let char of str){
+//         if(freq[char] === 1){
+//             return char
+//         }
+//       }
+//       return null
+// }
+// console.log(firstNonRepeatingCharacter("swiss"))
+// console.log(firstNonRepeatingCharacter("aabbcc"));
+
+//Using Map (Preserves Order)
+
+// function firstNnRepeatingChar(str){
+//     let map = new Map()
+
+//     for(let char of str){
+//         map.set(char, (map.get(char)||0) + 1)
+//     }
+
+//     for(let [char, count] of map){
+//         if(count===1) return char
+//     }
+//     return null
+// }
+
+// console.log(firstNnRepeatingChar("swiss")); // "w"
+
+
+//3. Naive Approach (O(n²))
+
+function firstNonRepeatingChar(str){
+     for(let i = 0;i<str.length;i++){
+        let char = str[i];
+        if(str.indexOf(char) === str.lastIndexOf(char)){
+            return char;
+        }
+     }
+     return null;
+}
+console.log(firstNonRepeatingChar("swiss")); // "w"
